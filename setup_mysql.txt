@@ -1,0 +1,36 @@
+# установка и настройка mysql на машине в облаке
+
+apt install mysql-server mysql-client
+mysql_secure_installation
+
+sudo mysql            -- для добавления пользователей
+# добавим нового пользователя с правами доступа отовсюду, ко всем базам данных
+#Создаем пользователя
+CREATE USER 'TestUser'@'%' IDENTIFIED BY 'Pa$$w0rd';    
+-- может быть добавить способ авторизации CREATE USER 'TestUser'@'%' IDENTIFIED WITH mysql_native_password BY 'Pa$$w0rd';
+#Назначаем права
+GRANT ALL PRIVILEGES ON *.* TO 'TestUser'@'%';          -- 
+#Применяем изменения
+FLUSH PRIVILEGES;
+
+
+
+
+#
+nano my.cnf
+[client]
+user=TestUser
+password=password
+
+# настройка /etc/mysql/mysqld.conf/mysql.cnf для прослушивания из внешней сети
+# исправить строчку bind-address
+nano /etc/mysql/mysql.conf.d/mysqld.cnf
+bind-address = 0.0.0.0          -- слушать все адреса (можно обращаться из любого места)
+
+
+
+systemctl restart mysql         -- перезапускаем mysql
+
+# настройка ufw для доступа из сети
+ufw allow from x.x.x.x to any port 3306
+ufw enable
