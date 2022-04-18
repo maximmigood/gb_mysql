@@ -1,0 +1,21 @@
+#https://andreyex.ru/operacionnaya-sistema-linux/rukovodstvo-po-nastrojke-sftp-servera-v-linux/
+
+sudo groupadd sftpg
+
+sudo useradd -g sftpg andreyexsftp 
+sudo passwd andreyexsftp
+
+sudo mkdir -p /data/andreyexsftp/upload
+sudo chown -R root.sftpg /data/andreyexsftp
+sudo chown -R andreyexsftp.sftpg /data/andreyexsftp/upload
+
+# у папки к которой будут подключаться должен быть владелец root
+
+
+Match Group sftpg
+     ChrootDirectory /data/%u
+     ForceCommand internal-sftp
+    # добавить строчку чтобы подключаться по паролю а не по ключу
+    
+# перезапустить сервич
+sudo systemctl restart sshd
