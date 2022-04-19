@@ -13,9 +13,6 @@ GRANT ALL PRIVILEGES ON *.* TO 'TestUser'@'%';          --
 #Применяем изменения
 FLUSH PRIVILEGES;
 
-
-
-
 #
 nano my.cnf
 [client]
