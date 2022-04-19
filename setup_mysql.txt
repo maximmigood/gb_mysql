@@ -19,7 +19,7 @@ nano my.cnf
 user=TestUser
 password=password
 
-# настройка /etc/mysql/mysqld.conf/mysql.cnf для прослушивания из внешней сети
+# настройка /etc/mysql/mysqld.conf.d/mysql.cnf для прослушивания из внешней сети
 # исправить строчку bind-address
 nano /etc/mysql/mysql.conf.d/mysqld.cnf
 bind-address = 0.0.0.0          -- слушать все адреса (можно обращаться из любого места)
